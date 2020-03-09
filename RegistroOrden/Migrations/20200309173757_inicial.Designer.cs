@@ -9,7 +9,7 @@ using RegistroOrden.DAL;
 namespace RegistroOrden.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20200309045221_inicial")]
+    [Migration("20200309173757_inicial")]
     partial class inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -53,6 +53,9 @@ namespace RegistroOrden.Migrations
                     b.Property<string>("Descripcion")
                         .HasColumnType("TEXT");
 
+                    b.Property<decimal>("MontoTotal")
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("OrdenId")
                         .HasColumnType("INTEGER");
 
@@ -62,10 +65,9 @@ namespace RegistroOrden.Migrations
                     b.Property<int>("ProductoId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<decimal>("Total")
-                        .HasColumnType("TEXT");
-
                     b.HasKey("OrdenDetalleId");
+
+                    b.HasIndex("ClienteId");
 
                     b.HasIndex("OrdenId");
 
@@ -86,16 +88,7 @@ namespace RegistroOrden.Migrations
                     b.Property<int>("ClienteId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Descripcion")
-                        .HasColumnType("TEXT");
-
                     b.Property<DateTime>("Fecha")
-                        .HasColumnType("TEXT");
-
-                    b.Property<decimal>("MontoTotal")
-                        .HasColumnType("TEXT");
-
-                    b.Property<decimal>("Precio")
                         .HasColumnType("TEXT");
 
                     b.HasKey("OrdenId");
@@ -124,6 +117,12 @@ namespace RegistroOrden.Migrations
 
             modelBuilder.Entity("RegistroOrden.Entidades.OrdenDetalles", b =>
                 {
+                    b.HasOne("RegistroOrden.Entidades.Clientes", null)
+                        .WithMany("OrdenesDetalle")
+                        .HasForeignKey("ClienteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("RegistroOrden.Entidades.Ordenes", null)
                         .WithMany("OrdenesDetalle")
                         .HasForeignKey("OrdenId")

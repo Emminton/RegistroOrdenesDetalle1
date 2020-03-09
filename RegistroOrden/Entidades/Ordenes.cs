@@ -12,25 +12,23 @@ namespace RegistroOrden.Entidades
         public int OrdenId { get; set; }
         public int ClienteId { get; set; }
         public DateTime Fecha { get; set; }
-        public string Descripcion { get; set; }
         public int CantidadOrden { get; set; }
-        public decimal Precio { get; set; }
-        public decimal MontoTotal { get; set; }
+        //public decimal Precio { get; set; }
+        //public decimal MontoTotal { get; set; }
 
-        [ForeignKey("OrdenId")] 
+        [ForeignKey("OrdenId")]
         public virtual List<OrdenDetalles> OrdenesDetalle { get; set; } = new List<OrdenDetalles>();
-        public Ordenes() 
+        public Ordenes()
         { }
 
-        public Ordenes(int ordenId, int clienteId, DateTime fecha, string descripcion, int cantidadOrden, decimal precio, decimal montoTotal, List<OrdenDetalles> ordenesDetalle)
+        public Ordenes(int ordenId, int clienteId, DateTime fecha, int cantidadOrden, List<OrdenDetalles> ordenesDetalle)
         {
             OrdenId = ordenId;
             ClienteId = clienteId;
             Fecha = fecha;
-            Descripcion = descripcion;
             CantidadOrden = cantidadOrden;
-            Precio = precio;
-            MontoTotal = montoTotal;
+            //Precio = precio;decimal precio, decimal montoTotal,
+            //MontoTotal = montoTotal;
             OrdenesDetalle = ordenesDetalle;
 
         }

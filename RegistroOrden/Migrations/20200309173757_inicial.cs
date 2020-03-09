@@ -44,10 +44,7 @@ namespace RegistroOrden.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     ClienteId = table.Column<int>(nullable: false),
                     Fecha = table.Column<DateTime>(nullable: false),
-                    Descripcion = table.Column<string>(nullable: true),
-                    CantidadOrden = table.Column<int>(nullable: false),
-                    Precio = table.Column<decimal>(nullable: false),
-                    MontoTotal = table.Column<decimal>(nullable: false)
+                    CantidadOrden = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -72,11 +69,17 @@ namespace RegistroOrden.Migrations
                     Descripcion = table.Column<string>(nullable: true),
                     Cantidad = table.Column<int>(nullable: false),
                     Precio = table.Column<decimal>(nullable: false),
-                    Total = table.Column<decimal>(nullable: false)
+                    MontoTotal = table.Column<decimal>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_OrdenDetalles", x => x.OrdenDetalleId);
+                    table.ForeignKey(
+                        name: "FK_OrdenDetalles_Cliente_ClienteId",
+                        column: x => x.ClienteId,
+                        principalTable: "Cliente",
+                        principalColumn: "ClienteId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_OrdenDetalles_Ordene_OrdenId",
                         column: x => x.OrdenId,
@@ -90,6 +93,11 @@ namespace RegistroOrden.Migrations
                         principalColumn: "ProductoId",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrdenDetalles_ClienteId",
+                table: "OrdenDetalles",
+                column: "ClienteId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrdenDetalles_OrdenId",

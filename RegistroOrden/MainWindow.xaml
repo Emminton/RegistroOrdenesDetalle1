@@ -6,10 +6,10 @@
         xmlns:local="clr-namespace:RegistroOrden"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <Button x:Name="RegistarOrdenButton" Content="Registrar Ordenes" HorizontalAlignment="Left" Margin="279,313,0,0" VerticalAlignment="Top" Width="161" Height="67" FontSize="16" FontWeight="Bold" Click="RegistarButton_Click"/>
-        <Button x:Name="RegistrarProductoButton" Content="Registrar Producto" HorizontalAlignment="Left" Margin="279,54,0,0" VerticalAlignment="Top" Width="161" Height="67" FontSize="16" FontWeight="Bold" Click="RegistrarProductoButton_Click"/>
-        <Button x:Name="RegistrarClienteButton" Content="Registrar Cliente" HorizontalAlignment="Left" Margin="279,179,0,0" VerticalAlignment="Top" Width="161" Height="67" FontSize="16" FontWeight="Bold" Click="RegistrarClienteButton_Click"/>
+    <Grid Background="{DynamicResource {x:Static SystemColors.GradientActiveCaptionBrushKey}}">
+        <Button x:Name="RegistarOrdenButton" Content="Registrar Ordenes" HorizontalAlignment="Left" Margin="568,0,0,0" VerticalAlignment="Center" Width="161" Height="67" FontSize="16" FontWeight="Bold" Click="RegistarButton_Click"/>
+        <Button x:Name="RegistrarProductoButton" Content="Registrar Producto" HorizontalAlignment="Left" Margin="58,0,0,0" VerticalAlignment="Center" Width="161" Height="67" FontSize="16" FontWeight="Bold" Click="RegistrarProductoButton_Click"/>
+        <Button x:Name="RegistrarClienteButton" Content="Registrar Cliente" HorizontalAlignment="Left" VerticalAlignment="Center" Width="161" Height="67" FontSize="16" FontWeight="Bold" Click="RegistrarClienteButton_Click" Margin="308,0,0,0"/>
 
     </Grid>
 </Window>

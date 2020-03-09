@@ -59,8 +59,8 @@ namespace RegistroOrden.UI.Registros
                         paso = true;
                 }
             }
-            
-            if (string.IsNullOrWhiteSpace(PrecioProductoTex.Text))
+
+            if (string.IsNullOrWhiteSpace(PrecioProductoTex.Text) )
             {
                 MessageBox.Show("El Campo PrecioProducto no puede estar vacio");
                 PrecioProductoTex.Focus();

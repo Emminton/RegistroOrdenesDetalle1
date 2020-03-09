@@ -38,86 +38,53 @@ namespace RegistroOrden.UI.Registros
             CantidadOdenTex.Text = string.Empty;
             PrecioTex.Text = string.Empty;
             MontoTotalTex.Text = string.Empty;
-            ordenes.OrdenesDetalle = new List<OrdenDetalles>();
             ordenes = new Ordenes();
             Llenar();
+            ordenes.OrdenesDetalle = new List<OrdenDetalles>();
 
-            //this.OrdenesDetalle = new List<OrdenDetalles>();
             //CargarDataGrid();
         }
         //private void CargarDataGrid()
         //{
         //    DetalleDataGrid.ItemsSource = null;
-        //    DetalleDataGrid.ItemsSource = this.OrdenesDetalle;
+        //    DetalleDataGrid.ItemsSource = ordenes.OrdenesDetalle;
         //}
         private bool Validar()
         {
             bool paso = true;
 
-            //if (string.IsNullOrWhiteSpace(DescrepcionTex.Text))
+            //if (string.IsNullOrWhiteSpace(ClienteIdTex.Text))
             //{
-            //    MessageBox.Show("El Campo Nombre no puede estar vacio");
-            //    DescrepcionTex.Focus();
+            //    MessageBox.Show("El Campo ClienteId Debe LLenarse..");
+            //    ClienteIdTex.Focus();
             //    paso = false;
             //}
-            //else
-            //{
-            //    foreach (var caracter in DescrepcionTex.Text)
-            //    {
-
-            //        if (!char.IsLetter(caracter) && !char.IsWhiteSpace(caracter))
-            //        {
-            //            paso = false;
-            //            MessageBox.Show("El Campo DIESCRICION solo recibe TEXTO...");
-            //        }
-            //        else
-            //        if (!char.IsLetter(caracter) && !char.IsWhiteSpace(caracter))
-
-            //            paso = true;
-            //    }
-            //}          
-
-            //if (string.IsNullOrWhiteSpace(CantidadOdenTex.Text))
-            //{
-            //    MessageBox.Show("El Campo CANTIDAD no puede estar vacio");
-            //    CantidadOdenTex.Focus();
-            //    paso = false;
-            //}
-            //else
-            //{
-            //    foreach (var caracter in CantidadOdenTex.Text)
-            //    {
-            //        if (!char.IsDigit(caracter))
-            //        {
-            //            paso = false;
-            //            MessageBox.Show("Escriba solo numeros en el campo CANTIDAD..");
-            //        }
-            //        else
-            //        if (!char.IsDigit(caracter))
-            //            paso = true;
-            //    }
-            //}         
-
-            //if (string.IsNullOrWhiteSpace(PrecioTex.Text))
-            //{
-            //    MessageBox.Show("El Campo PRECIO no puede estar vacio");
-            //    PrecioTex.Focus();
-            //    paso = false;
-            //}
-            //else
-            //{
-            //    foreach (var caracter in PrecioTex.Text)
-            //    {
-            //        if (!char.IsDigit(caracter))
-            //        {
-            //            paso = false;
-            //            MessageBox.Show("Escriba solo numeros en el campo PRECIO..");
-            //        }
-            //        else
-            //        if (!char.IsDigit(caracter))
-            //            paso = true;
-            //    }
-            //}
+            if (string.IsNullOrWhiteSpace(ProductoIdTex.Text))
+            {
+                MessageBox.Show("El Campo ProductoId Debe LLenarse..");
+                ProductoIdTex.Focus();
+                paso = false;
+            }
+            if (string.IsNullOrWhiteSpace(CantidadOdenTex.Text))
+            {
+                MessageBox.Show("El Campo CANTIDAD no puede estar vacio");
+                CantidadOdenTex.Focus();
+                paso = false;
+            }
+            else
+            {
+                foreach (var caracter in CantidadOdenTex.Text)
+                {
+                    if (!char.IsDigit(caracter))
+                    {
+                        paso = false;
+                        MessageBox.Show("Escriba solo numeros en el campo CANTIDAD..");
+                    }
+                    else
+                    if (!char.IsDigit(caracter))
+                        paso = true;
+                }
+            }
             return paso;
         }
 
@@ -132,19 +99,19 @@ namespace RegistroOrden.UI.Registros
         }
         private bool ExisteEnLaBaseDeDatosOrdenDetalle()
         {
-            Ordenes ordenes = OrdenesBLL.Buscar(Convert.ToInt32(OrdenIdTex.Text));
-            return (ordenes != null);
+            Ordenes ordeness = OrdenesBLL.Buscar(Convert.ToInt32(ordenes.OrdenId));
+            return (ordeness != null);
         }
-        //private bool ExisteEnLaBaseDeDatosCliente()
-        //{
-        //    Clientes clientes = ClienteBLL.Buscar(Convert.ToInt32(ClienteIdTex.Text));
-        //    return (clientes != null);
-        //}
-        //private bool ExisteEnLaBaseDeDatosProducto()
-        //{
-        //    Productos productos = ProductoBLL.Buscar(Convert.ToInt32(ProductoIdTex.Text));
-        //    return (productos != null);
-        //}
+        private bool ExisteEnLaBaseDeDatosCliente()
+        {
+            Clientes clientes = ClienteBLL.Buscar(Convert.ToInt32(ordenes.ClienteId));
+            return (clientes != null);
+        }
+        private bool ExisteEnLaBaseDeDatosProducto()
+        {
+            Productos productos = ProductoBLL.Buscar(Convert.ToInt32(ClienteIdTex.Text));
+            return (productos != null);
+        }
 
         private void GuardarButon_Click(object sender, RoutedEventArgs e)
         {
@@ -156,7 +123,7 @@ namespace RegistroOrden.UI.Registros
                 paso = OrdenesBLL.Guardar(ordenes);
             else
             {
-                if (!ExisteEnLaBaseDeDatosOrdenDetalle())
+                if (!ExisteEnLaBaseDeDatosOrdenDetalle()&& ExisteEnLaBaseDeDatosProducto()&& ExisteEnLaBaseDeDatosCliente())
                 {
                     MessageBox.Show("No se puede Modificar una persona que no existe", "Fallo", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
@@ -203,15 +170,12 @@ namespace RegistroOrden.UI.Registros
         }
         private void AgregarOrdenButton_Click(object sender, RoutedEventArgs e)
         {
-        //    if (DetalleDataGrid.ItemsSource != null)
-        //      this.OrdenesDetalle = (List<OrdenDetalles>)DetalleDataGrid.ItemsSource;
-                ////todo: valida campo de detalle
-
-                ////agrega un nuevo detalle con los datos introducidos. 
-                ordenes.OrdenesDetalle.Add(new OrdenDetalles(ordenes.OrdenId,Convert.ToInt32(ProductoIdTex.Text),Convert.ToInt32(ClienteIdTex.Text),
+          
+            ////agrega un nuevo detalle con los datos introducidos. 
+            ordenes.OrdenesDetalle.Add(new OrdenDetalles(ordenes.OrdenId,Convert.ToInt32(ProductoIdTex.Text),Convert.ToInt32(ClienteIdTex.Text),
                 DescrepcionTex.Text, Convert.ToInt32(CantidadOdenTex.Text),
                Convert.ToDecimal(PrecioTex.Text), Convert.ToDecimal(MontoTotalTex.Text)));
-
+            //OrdenDetalles
             Llenar();
 
             ProductoIdTex.Clear();
@@ -265,7 +229,7 @@ namespace RegistroOrden.UI.Registros
 
             decimal resultado = monto * pago;
 
-            MontoTotalTex.Text = resultado.ToString(); 
+            MontoTotalTex.Text = resultado.ToString();
         }
         private void ProductoLlenaCampo(Productos productos)
         {
@@ -287,8 +251,8 @@ namespace RegistroOrden.UI.Registros
                 }
                 else
                 {
-                    DescrepcionTex.Text = "No existe Tal Producto";
-                    PrecioTex.Text = "No Existe Precio";
+                    DescrepcionTex.Text =  "Este Producto No esta Registrado";
+                    PrecioTex.Text = "Sin Precio";
                 }
             }
         }

@@ -23,6 +23,7 @@ namespace RegistroOrden.BLL
             }
             catch (Exception)
             {
+                
                 throw;
             }
             finally
@@ -38,7 +39,7 @@ namespace RegistroOrden.BLL
 
             try
             {
-                db.Database.ExecuteSqlRaw($"Delete FROM OrdenesDetalle Where OrdenId = {ordenes.OrdenId}");
+                db.Database.ExecuteSqlRaw($"Delete FROM OrdenDetalles Where OrdenId = {ordenes.OrdenId}");
 
                 foreach (var item in ordenes.OrdenesDetalle)
                 {

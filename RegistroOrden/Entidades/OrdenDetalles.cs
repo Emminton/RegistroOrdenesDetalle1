@@ -16,7 +16,7 @@ namespace RegistroOrden.Entidades
         public string Descripcion { get; set; }
         public int Cantidad { get; set; }
         public decimal Precio { get; set; }
-        public decimal Total { get; set; }
+        public decimal MontoTotal { get; set; }
    
         public OrdenDetalles()
         {
@@ -30,7 +30,7 @@ namespace RegistroOrden.Entidades
             ////Total = 0;
         }
 
-        public OrdenDetalles( int ordenId, int productoId, int clienteId, string descripcion, int cantidad, decimal precio, decimal total)
+        public OrdenDetalles( int ordenId, int productoId, int clienteId, string descripcion, int cantidad, decimal precio, decimal montototal)
         {
             OrdenDetalleId = 0;
             OrdenId = ordenId;
@@ -39,7 +39,7 @@ namespace RegistroOrden.Entidades
             Descripcion = descripcion;
             Cantidad = cantidad;
             Precio = precio;
-            Total = total;
+            MontoTotal = montototal;
         }
     }
 }
