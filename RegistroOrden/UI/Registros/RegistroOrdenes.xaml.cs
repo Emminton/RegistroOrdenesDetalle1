@@ -61,7 +61,7 @@ namespace RegistroOrden.UI.Registros
             //}
             if (string.IsNullOrWhiteSpace(ProductoIdTex.Text))
             {
-                MessageBox.Show("El Campo ProductoId Debe LLenarse..");
+                MessageBox.Show("Los Campos ProductoId---ClienteId--Y--Cantidad  Debe LLenarse..");
                 ProductoIdTex.Focus();
                 paso = false;
             }
